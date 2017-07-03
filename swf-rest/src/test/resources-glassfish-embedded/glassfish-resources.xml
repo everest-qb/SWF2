@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE resources PUBLIC
+    "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN"
+    "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
+<resources>
+    <jdbc-resource pool-name="ArquillianEmbeddedDerbyPool"
+        jndi-name="jdbc/arquillian"/>
+    <!--
+    <jdbc-connection-pool name="ArquillianEmbeddedDerbyPool"
+        res-type="javax.sql.DataSource"
+        datasource-classname="org.apache.derby.jdbc.EmbeddedDataSource"
+        is-isolation-level-guaranteed="false">
+        <property name="databaseName" value="target/databases/derby"/>
+        <property name="createDatabase" value="create"/>
+    </jdbc-connection-pool>
+    -->
+    
+    <jdbc-connection-pool name="ArquillianEmbeddedDerbyPool"
+		res-type="java.sql.Driver" steady-pool-size="2" max-pool-size="10"
+		driver-classname="oracle.jdbc.driver.OracleDriver">
+		<property name="password" value="apps" />
+		<property name="user" value="apps" />
+		<property name="URL" value="jdbc:oracle:thin:@//10.63.251.59:1523/pttest" />
+	</jdbc-connection-pool>
+</resources>

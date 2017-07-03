@@ -17,6 +17,7 @@ import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import sunspring.annotation.LogTrace;
 import sunspring.swf.SwfGlobal;
 import sunspring.swf.ejb.DepartmentService;
 import sunspring.swf.ejb.EmployeeService;
@@ -27,6 +28,7 @@ import sunspring.swf.jpa.SwfEmpsAll;
 import sunspring.swf.jpa.SwfItemHdrAll;
 import sunspring.swf.jpa.SwfItemTxnAll;
 
+@LogTrace
 @Named
 @Transactional
 public class ProcessTool {

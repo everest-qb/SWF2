@@ -9,6 +9,7 @@ import javax.ejb.Stateless;
 import javax.persistence.Cache;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
 import sunspring.swf.jpa.SwfEmpsAll;
 import sunspring.annotation.LogTrace;
@@ -19,6 +20,7 @@ import sunspring.annotation.LogTrace;
 @LogTrace
 @Stateless
 @LocalBean
+@Transactional
 public class EmployeeService {
 
 	@PersistenceContext(unitName = "SWFunit")

@@ -9,18 +9,22 @@ import javax.ejb.Stateless;
 import javax.persistence.Cache;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import sunspring.annotation.LogTrace;
 import sunspring.swf.SwfGlobal;
 import sunspring.swf.jpa.SwfDeptAll;
 import sunspring.swf.jpa.SwfDeptMember;
 import sunspring.swf.jpa.SwfEmpsAll;
 
 
+@LogTrace
 @Stateless
 @LocalBean
+@Transactional
 public class DepartmentService {
 	private Logger log=LoggerFactory.getLogger(DepartmentService.class);
 

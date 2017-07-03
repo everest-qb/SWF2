@@ -8,6 +8,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
 import sunspring.swf.SwfGlobal;
 import sunspring.swf.jpa.SwfItemHdrAll;
@@ -20,6 +21,7 @@ import sunspring.annotation.LogTrace;
 @LogTrace
 @Stateless
 @LocalBean
+@Transactional
 public class RuleService {
 	
 	@PersistenceContext(unitName = "SWFunit")

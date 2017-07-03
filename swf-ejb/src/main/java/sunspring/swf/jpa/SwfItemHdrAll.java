@@ -111,14 +111,23 @@ public class SwfItemHdrAll implements Serializable {
 	@Column(name="PROCESS_STATUS")
 	private String processStatus;
 
+	/**
+	 * 需求起始日期
+	 */
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="REQUEST_ENABLE_DATE")
 	private Date requestEnableDate;
 
+	/**
+	 * 需求結束日期
+	 */
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="REQUEST_EXPIRE_DATE")
 	private Date requestExpireDate;
 
+	/**
+	 * Y/N 是否到職務異動終止
+	 */
 	@Column(name="REQUEST_EXPIRE_TYPE")
 	private String requestExpireType;
 
@@ -135,7 +144,7 @@ public class SwfItemHdrAll implements Serializable {
 	@Column(name="SUBMITTED_DATE")
 	private Date submittedDate;
 	
-	@OneToMany(cascade = ALL, mappedBy = "itemHdr", orphanRemoval = true)
+	@OneToMany(mappedBy="itemHdr", cascade = ALL, orphanRemoval = true)
 	@MapKey(name="itemTxnId")
 	private Map<BigDecimal,SwfItemTxnAll> itemTxn;
 	

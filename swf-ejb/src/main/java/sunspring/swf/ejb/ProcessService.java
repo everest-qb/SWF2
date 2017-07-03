@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,7 @@ import sunspring.annotation.LogTrace;
 @LogTrace
 @Stateless
 @LocalBean
+@Transactional
 public class ProcessService {
 	
 	private Logger log=LoggerFactory.getLogger(ProcessService.class);
@@ -69,6 +71,10 @@ public class ProcessService {
 		return p.getItemLine();
 	}
 	
+	/**
+	 * @param itemTxnId 關卡節點的主鍵
+	 * @return 由DB返回關卡節點
+	 */
 	public SwfItemTxnAll findTask(BigDecimal itemTxnId){
 		return em.find(SwfItemTxnAll.class, itemTxnId);
 	}
@@ -81,8 +87,8 @@ public class ProcessService {
 	
 	/**
 	 * 退回後如果是遇到辦理確認,再退回一次,目的是假設會退到辦理關卡
-	 * @param 關卡節點
-	 * @param 執行人ID
+	 * @param txn 關卡節點
+	 * @param emplId 執行人ID
 	 */
 	public void specialCaseGoBack(SwfItemTxnAll txn,BigDecimal emplId){
 		goBack(txn, emplId);
@@ -99,8 +105,8 @@ public class ProcessService {
 	
 	/**
 	 * 驗收和辦理確認可以退回
-	 * @param 關卡節點
-	 * @param 執行人ID
+	 * @param txn 關卡節點
+	 * @param emplId 執行人ID
 	 */
 	public void goBack(SwfItemTxnAll txn,BigDecimal emplId){
 		if(txn.getStation().getServiceActivityType().equals(String.valueOf(SwfGlobal.AVTIVITY_TYPE_ACCEPT))||
@@ -130,9 +136,9 @@ public class ProcessService {
 	
 	/**
 	 * 根據指定關卡結點執行簽核,如果之後連續關卡有自動,則無條件簽核
-	 * @param 關卡節點
-	 * @param 執行人ID
-	 * @param NULL為無條件同意,有值代表有條件同意
+	 * @param txn  關卡節點
+	 * @param emplId 執行人ID
+	 * @param comment NULL為無條件同意,有值代表有條件同意
 	 */
 	public void approveWithAuto(SwfItemTxnAll txn,BigDecimal emplId,String comment){
 		SwfItemTxnAll next=approve(txn,emplId,comment);
@@ -144,13 +150,13 @@ public class ProcessService {
 	
 	/**
 	 * 根據指定關卡結點執行一次簽核
-	 * @param 關卡節點
-	 * @param 執行人ID
-	 * @param NULL為無條件同意,有值代表有條件同意
+	 * @param txn 關卡節點
+	 * @param emplId 執行人ID
+	 * @param comment NULL為無條件同意,有值代表有條件同意
 	 * @return 如果下一關為自動(含核決人已審核過),則返回下一關卡節點
 	 */
 	private SwfItemTxnAll approve(SwfItemTxnAll txn,BigDecimal emplId,String comment){
-		if(txn.getProcessFlag().intValue()==1){
+		if(txn.getProcessFlag().intValue()==SwfGlobal.PROCESS_WAIT){
 			Calendar cal=Calendar.getInstance();				
 			String type = comment == null ? String.valueOf(SwfGlobal.APPROVE_TYPE_AGREE)
 					: String.valueOf(SwfGlobal.APPROVE_TYPE_CONDITION_AGREE);
@@ -213,7 +219,7 @@ public class ProcessService {
 	 * @param emplId 執行人ID
 	 */
 	public void canecl(SwfItemTxnAll txn,BigDecimal emplId){
-		if(txn.getProcessFlag().intValue()==1){
+		if(txn.getProcessFlag().intValue()==SwfGlobal.PROCESS_WAIT){
 			SwfStationAll station =txn.getStation();
 			int type=Integer.parseInt(station.getServiceActivityType());
 			if(SwfGlobal.AVTIVITY_TYPE_AUDIT==type || SwfGlobal.AVTIVITY_TYPE_APPROVE==type 
@@ -226,7 +232,7 @@ public class ProcessService {
 				txn.setLastUpdatedBy(emplId);
 				SwfItemHdrAll hdr=txn.getItemHdr();
 				for(SwfItemTxnAll other:hdr.getItemTxn().values()){
-					if(other.getProcessFlag().intValue()==2){
+					if(other.getProcessFlag().intValue()==SwfGlobal.PROCESS_UNDO){
 						other.setProcessFlag(new BigDecimal(0));
 					}
 				}
@@ -245,7 +251,7 @@ public class ProcessService {
 	
 	/**
 	 * 送單
-	 * @param 未儲存的表頭
+	 * @param rougnhHdr 未儲存的表頭
 	 * @return 已受控管單據(表頭+流程關卡資料)
 	 */
 	public SwfItemHdrAll submit(SwfItemHdrAll rougnhHdr){
