@@ -48,7 +48,7 @@ public class RuleService {
 	
 	/**
 	 * 取得每個站點的規則物件
-	 * @param 表頭
+	 * @param hdr 表頭
 	 * @return 每個站點的規則物件
 	 */
 	public List<RuleResultVaue> findRuleResult(SwfItemHdrAll hdr){
@@ -77,8 +77,8 @@ public class RuleService {
 	
 	/**
 	 * 取得某站點的規則物件
-	 * @param 輸入判斷參數
-	 * @param 所有站點
+	 * @param list 輸入判斷參數
+	 * @param station 所有站點
 	 * @return 規則物件
 	 */
 	private RuleResultVaue RuleSelect(List<SwfItemLineAll> list,SwfStationAll station){
@@ -119,8 +119,8 @@ public class RuleService {
 	
 	/**
 	 * 判斷並取得規則條件(第二層)
-	 * @param 輸入參數
-	 * @param 站點的所有規則條件
+	 * @param list 輸入參數
+	 * @param rList 站點的所有規則條件
 	 * @return 規則條件
 	 */
 	private SwfStationRuleAll matchRule2(List<SwfItemLineAll> list,List<SwfStationRuleAll> rList){
@@ -136,7 +136,7 @@ public class RuleService {
 	
 	/**
 	 * 根據規則條件取得規則物件(第二層)
-	 * @param 站點規則條件
+	 * @param r 站點規則條件
 	 * @return 規則物件
 	 */
 	private RuleResultVaue rule2Select(SwfStationRuleAll r){

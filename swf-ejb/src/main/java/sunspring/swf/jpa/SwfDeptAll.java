@@ -10,7 +10,6 @@ import javax.xml.bind.annotation.XmlTransient;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.CascadeType.PERSIST;
 import static javax.persistence.CascadeType.MERGE;
 

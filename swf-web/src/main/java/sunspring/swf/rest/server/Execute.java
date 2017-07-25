@@ -1,4 +1,4 @@
-package sunspring.swf.rest;
+package sunspring.swf.rest.server;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -28,7 +28,16 @@ import sunspring.swf.jpa.SwfItemApplAll;
 import sunspring.swf.jpa.SwfItemHdrAll;
 import sunspring.swf.jpa.SwfItemLineAll;
 import sunspring.swf.jpa.SwfItemTxnAll;
+import sunspring.swf.rest.SwfDoc;
+import sunspring.swf.rest.SwfDocLine;
+import sunspring.swf.rest.SwfDocTxn;
+import sunspring.swf.rest.SwfResponse;
 
+/**
+ * SWF SERVER REST
+ * @author QB
+ *
+ */
 @LogTrace
 @Path("exec")
 public class Execute {
@@ -38,7 +47,7 @@ public class Execute {
 	
 	@GET
 	@Path("findDoc")
-	@Consumes(MediaType.APPLICATION_JSON)
+	//@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public SwfDoc findSwfDoc(@NotNull @QueryParam("id") long hdrId){
 		SwfDoc doc=new SwfDoc();

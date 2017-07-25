@@ -1,4 +1,4 @@
-package sunspring.swf.rest;
+package sunspring.swf.rest.server;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

@@ -1,4 +1,4 @@
-package sunspring.swf.rest;
+package sunspring.swf.rest.server;
 
 public class RestWarnException extends Exception {
 

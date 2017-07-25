@@ -3,17 +3,26 @@ package sunspring.swf.rest;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+/**
+ * ItemTxn的REST對應
+ * @author QB
+ *
+ */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class SwfDocTxn {
 
+	@NotNull
 	private BigDecimal itemTxnId;
+	@NotNull
 	private BigDecimal hdrId;
+	@NotNull
 	private BigDecimal approverId;
 	private String approveComment;
 	@XmlJavaTypeAdapter(DateXmlAdapter.class)

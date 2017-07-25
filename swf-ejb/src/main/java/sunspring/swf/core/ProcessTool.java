@@ -48,7 +48,7 @@ public class ProcessTool {
 
 	/**
 	 * 產生流程節點關卡
-	 * @param SwfItemHdrAll 表頭
+	 * @param hdr 表頭
 	 * @return 流程關卡各個結點
 	 */
 	public List<SwfItemTxnAll> genTxn(SwfItemHdrAll hdr){
@@ -138,8 +138,8 @@ public class ProcessTool {
 	
 	/**
 	 * 利用關聯物件找尋關卡,而不是由DB撈取
-	 * @param SwfItemTxnAll 關卡節點
-	 * @param BigDecimal NULL表示找下一關 ,有值表示根據ID找到指定的
+	 * @param txn 關卡節點
+	 * @param txnId NULL表示找下一關 ,有值表示根據ID找到指定的
 	 * @return 尋找的關卡節點
 	 */
 	public SwfItemTxnAll findTask(SwfItemTxnAll txn,BigDecimal txnId){
@@ -156,7 +156,7 @@ public class ProcessTool {
 	
 	/**
 	 * 取得申請人ID(或者填單人)
-	 * @param SwfItemHdrAll 表頭
+	 * @param hdr 表頭
 	 * @return 申請人ID
 	 */
 	public BigDecimal findSelf(SwfItemHdrAll hdr){
@@ -165,8 +165,8 @@ public class ProcessTool {
 	
 	/**
 	 * 根據申請人,取得簽核人部門的組織簽核人,如果是核准關卡只取最高部門
-	 * @param SwfItemHdrAll 表頭
-	 * @param RuleResultVaue 規則
+	 * @param hdr 表頭
+	 * @param rrv 規則
 	 * @return 簽核人ID 由低jbolevel先
 	 */
 	public List<BigDecimal> findApplicantTop(SwfItemHdrAll hdr,RuleResultVaue rrv){
@@ -211,7 +211,7 @@ public class ProcessTool {
 	
 	/**
 	 * 取得指定部門的組織簽核人,如果是核准關卡只取最高部門
-	 * @param RuleResultVaue 規則
+	 * @param rrv 規則
 	 * @return 簽核人ID 由低jbolevel先
 	 */
 	public List<BigDecimal> findDeptTop(RuleResultVaue rrv){

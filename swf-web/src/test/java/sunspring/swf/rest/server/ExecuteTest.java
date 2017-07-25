@@ -1,4 +1,4 @@
-package sunspring.swf.rest;
+package sunspring.swf.rest.server;
 
 import static org.junit.Assert.*;
 
@@ -34,6 +34,11 @@ import sunspring.swf.SwfGlobal;
 import sunspring.swf.core.ProcessTool;
 import sunspring.swf.ejb.RuleService;
 import sunspring.swf.jpa.SwfEmpsAll;
+import sunspring.swf.rest.SwfDoc;
+import sunspring.swf.rest.SwfDocTxn;
+import sunspring.swf.rest.SwfResponse;
+import sunspring.swf.rest.server.Execute;
+import sunspring.swf.rest.server.RestConf;
 
 
 

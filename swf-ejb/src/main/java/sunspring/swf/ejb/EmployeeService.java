@@ -26,12 +26,18 @@ public class EmployeeService {
 	@PersistenceContext(unitName = "SWFunit")
 	private EntityManager em;
     
+	public List<SwfEmpsAll> findbyPreNu(String pre){
+		return em.createQuery("SELECT e FROM SwfEmpsAll e WHERE e.empNum like :EMNU", SwfEmpsAll.class)
+		    	.setParameter("EMNU", pre+"%")
+		    	.getResultList();
+	}
+	
 	public SwfEmpsAll find(BigDecimal empId){
 		return em.find(SwfEmpsAll.class, empId);
 	}
 	
     /**
-     * @param 工號
+     * @param emplNu 工號
      * @return SwfEmpsAll
      */
     public SwfEmpsAll findByNu(String emplNu){
